@@ -151,7 +151,7 @@ export default function Portfolio() {
       title: "Berdikari Talent Cerdas",
       description:
         "Aplikasi web untuk pelaksanaan jobfair polibatam serta fitur yang memberikan kecocokan pekerjaan melalui AI saya terlibat dalam pembuatan fitur mencatat kehadiran peserta jobfair, fitur ini memungkinkan peserta untuk melakukan check-in dan check-out secara digital.",
-      tech: [ "JavaScript", "Laravel", "Bootstrap"],
+      tech: [ "JavaScript", "Laravel", "Bootstrap","Mysql"],
       image: "/berdikari.png",
       link: "https://talentcerdas.id",
       status: "Ongoing",
@@ -265,7 +265,7 @@ export default function Portfolio() {
           {/* Mobile Menu */}
           <div
             className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-              isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
             }`}
           >
             <div className="bg-white/95 backdrop-blur-xl rounded-2xl mb-4 shadow-xl border border-gray-200/50 p-4">
