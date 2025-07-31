@@ -12,11 +12,11 @@ import {
   Code,
   User,
   Briefcase,
-  Send,
+  Send, 
   Download,
-  Star,
   Calendar,
 } from "lucide-react"
+import Image from "next/image"
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home")
@@ -132,7 +132,7 @@ export default function Portfolio() {
       description:
         "Aplikasi Absensi Peserta Acara Online adalah solusi digital yang dirancang untuk mempermudah pencatatan kehadiran peserta pada berbagai jenis acara online seperti webinar, workshop, seminar, dan konferensi. Aplikasi ini memungkinkan penyelenggara acara untuk mengelola kehadiran peserta secara efektif dan efisien.",
       tech: [ "PHP Native", "MySQL", "AJAX", "jQuery","SweetAlert", "Bootstrap"],
-      image: "/vec-sem1.png?height=250&width=400&text=Virtual+Event+Check+In",
+      image: "/vec-sem1.png",
       link: "https://pbl.polibatam.ac.id/pamerin/detail.php?title=aplikasi-absensi-peserta-acara-online&id=MjU1NQ==&ta=NQ==&id_tim=Mjg1Mg==",
       status: "Completed",
       year: "2024",
@@ -142,7 +142,7 @@ export default function Portfolio() {
       description:
         "Aplikasi web untuk melacak jejak karir alumni setelah lulus serta memberikan informasi terkait perkembangan karir mereka. fitur utama pada aplikasi ini yaitu kuesioner yang dinamis serta statistik kuesioner dan statistik alumni.",
       tech: ["Laravel", "MySQL", "JavaScript", "Tailwind CSS", "Chart.js","Phpspreadsheet"],
-      image: "/Tracer BG.png?height=250&width=400&text=School+Management+System",
+      image: "/Tracer BG.png",
       link: "https://pbl.polibatam.ac.id/pamerin/detail.php?title=pengembangan-web-tracer-study-polibatam&id=MzEyNw==&ta=Ng==&id_tim=MzkxNA==",
       status: "Completed",
       year: "2025",
@@ -152,7 +152,7 @@ export default function Portfolio() {
       description:
         "Aplikasi web untuk pelaksanaan jobfair polibatam serta fitur yang memberikan kecocokan pekerjaan melalui AI saya terlibat dalam pembuatan fitur mencatat kehadiran peserta jobfair, fitur ini memungkinkan peserta untuk melakukan check-in dan check-out secara digital.",
       tech: [ "JavaScript", "Laravel", "Bootstrap"],
-      image: "/berdikari.png?height=250&width=400&text=Interactive+Portfolio",
+      image: "/berdikari.png",
       link: "https://talentcerdas.id",
       status: "Ongoing",
       year: "2025",
@@ -338,9 +338,11 @@ export default function Portfolio() {
                 {/* Photo frame with gradient border */}
                 <div className="relative p-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-spin-slow">
                   <div className="bg-white p-2 rounded-full">
-                    <img
-                      src="/andri-foto.jpeg?height=320&width=320&text=Professional+Photo"
+                    <Image
+                      src="/andri-foto.jpeg"
                       alt="Andri Putra Desyandra Siregar - Web Developer"
+                      width={320}
+                      height={320}
                       className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl group-hover:scale-105 transition-all duration-500"
                       style={{
                         filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.15))",
