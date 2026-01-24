@@ -12,8 +12,7 @@ import {
   Code,
   User,
   Briefcase,
-  Send, 
-  Download,
+  Send,
   Calendar,
 } from "lucide-react"
 import { 
@@ -26,7 +25,6 @@ import {
   SiGo 
 } from "react-icons/si"
 import Image from "next/image"
-import { title } from "process"
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home")
@@ -732,11 +730,12 @@ export default function Portfolio() {
                 key={index}
                 className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 group hover:scale-105"
               >
-                <div className="relative overflow-hidden">
-                  <img
+                <div className="relative overflow-hidden h-48 sm:h-56">
+                  <Image
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
-                    className="w-full h-48 sm:h-56 object-cover group-hover:scale-110 transition-transform duration-500"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="absolute top-4 right-4">
