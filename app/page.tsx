@@ -16,7 +16,17 @@ import {
   Download,
   Calendar,
 } from "lucide-react"
+import { 
+  SiPhp, 
+  SiLaravel, 
+  SiJavascript, 
+  SiHtml5, 
+  SiCss3, 
+  SiFlutter, 
+  SiGo 
+} from "react-icons/si"
 import Image from "next/image"
+import { title } from "process"
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home")
@@ -29,7 +39,7 @@ export default function Portfolio() {
     { left: number; top: number; delay: number; duration: number }[]
   >([])
 
-  const fullText = "Programmer | Web Developer | Tech Enthusiast"
+  const fullText = "Programmer | Tech Enthusiast"
 
   // Typing animation
   useEffect(() => {
@@ -95,11 +105,13 @@ export default function Portfolio() {
   }, [])
 
   const skills = [
-    { name: "PHP Native", level: 95, color: "bg-gradient-to-r from-blue-500 to-blue-600", icon: "🐘" },
-    { name: "Laravel", level: 95, color: "bg-gradient-to-r from-red-500 to-red-600", icon: "🔥" },
-    { name: "JavaScript", level: 60, color: "bg-gradient-to-r from-yellow-500 to-yellow-600", icon: "⚡" },
-    { name: "HTML", level: 90, color: "bg-gradient-to-r from-orange-500 to-orange-600", icon: "🌐" },
-    { name: "CSS", level: 50, color: "bg-gradient-to-r from-purple-500 to-purple-600", icon: "🎨" },
+    { name: "PHP Native", icon: SiPhp, color: "text-[#777BB4]" },
+    { name: "Laravel", icon: SiLaravel, color: "text-[#FF2D20]" },
+    { name: "JavaScript", icon: SiJavascript, color: "text-[#F7DF1E]" },
+    { name: "HTML", icon: SiHtml5, color: "text-[#E34F26]" },
+    { name: "CSS", icon: SiCss3, color: "text-[#1572B6]" },
+    { name: "Flutter", icon: SiFlutter, color: "text-[#02569B]" },
+    { name: "Golang", icon: SiGo, color: "text-[#00ADD8]" },
   ]
 
   const education = [
@@ -107,21 +119,21 @@ export default function Portfolio() {
       school: "Politeknik Negeri Batam",
       period: "2024 - Sekarang",
       status: "Sedang Menempuh",
-      icon: "🎓",
+      image: "/poltek.png",
       description: "Teknik Informatika - Program Studi Teknologi Rekayasa Perangkat Lunak",
     },
     {
       school: "SMAN 20 Batam",
       period: "2021 - 2024",
       status: "Lulus",
-      icon: "🏫",
+      image: "/SMAN20.png",
       description: "Jurusan IPA - Dasar matematika serta ilmu mengenai fisika dan kimia",
     },
     {
       school: "SMPN 42",
       period: "2018 - 2021",
       status: "Lulus",
-      icon: "🏫",
+      image: "/SMPN42.jpg",
       description: "Pendidikan dasar dengan prestasi akademik yang baik",
     },
   ]
@@ -157,6 +169,16 @@ export default function Portfolio() {
       status: "Ongoing",
       year: "2025",
     },
+    {
+      title: "Jobnova aplikasi pencari kerja mobile",
+      description:
+        "Aplikasi mobile untuk pencarian kerja yang memudahkan pengguna dalam menemukan lowongan pekerjaan sesuai dengan minat dan keahlian mereka. Fitur utama pada aplikasi ini yaitu rekomendasi lowongan berbasis ai sesuai dengan minat dan keahlian pengguna. aplikasi ini juga terkoneksi dengan website talentcerdas.id",
+      tech: [ "Flutter", "Dart", "Firebase","Golang","Swagger UI", "Mysql"],
+      link: "https://pbl.polibatam.ac.id/pamerin/detail.php?title=aplikasi-pencari-kerja&id=NDQ5OQ==&ta=Nw==&id_tim=NTQwNg==",
+      image: "/Jobnova.png",
+      status: "Completed",
+      year : "2026",
+    }
 
   ]
 
@@ -203,7 +225,7 @@ export default function Portfolio() {
                 <span className="text-white font-bold text-lg">A</span>
               </div>
               <div className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                AndriDev
+                AndriPutra
               </div>
             </div>
 
@@ -233,7 +255,7 @@ export default function Portfolio() {
                 onClick={() => scrollToSection("contact")}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-xl font-medium text-sm hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
-                Hire Me
+              Contact Me
               </button>
             </div>
 
@@ -421,13 +443,7 @@ export default function Portfolio() {
               <Briefcase className="mr-2" size={20} />
               View My Work
             </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="w-full sm:w-auto border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-full font-semibold hover:border-blue-500 hover:text-blue-600 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center"
-            >
-              <Download className="mr-2" size={20} />
-              Download CV
-            </button>
+      
           </div>
 
           {/* Social Links */}
@@ -560,28 +576,23 @@ export default function Portfolio() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div className="space-y-6">
-              {skills.map((skill, index) => (
-                <div
-                  key={skill.name}
-                  className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="flex justify-between items-center mb-4">
-                    <div className="flex items-center">
-                      <span className="text-2xl mr-3">{skill.icon}</span>
-                      <span className="text-gray-800 font-semibold text-lg">{skill.name}</span>
-                    </div>
-                    <span className="text-blue-600 font-bold text-lg">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100">
+              <h3 className="text-2xl font-semibold text-gray-800 mb-6">Skills</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {skills.map((skill, index) => {
+                  const IconComponent = skill.icon
+                  return (
                     <div
-                      className={`h-4 rounded-full ${skill.color} transition-all duration-1000 ease-out shadow-sm`}
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
+                      key={skill.name}
+                      className="flex items-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl hover:shadow-md transition-all duration-300"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <IconComponent className={`text-3xl mr-3 ${skill.color}`} />
+                      <span className="text-gray-800 font-semibold">{skill.name}</span>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
 
             <div className="space-y-6">
@@ -666,7 +677,14 @@ export default function Portfolio() {
                 <div className={`w-full md:w-5/12 ${index % 2 === 0 ? "md:pr-8" : "md:pl-8"} ml-12 md:ml-0`}>
                   <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:scale-105">
                     <div className="flex items-start mb-4">
-                      <span className="text-3xl mr-4 flex-shrink-0">{edu.icon}</span>
+                      <div className="relative w-16 h-16 mr-4 flex-shrink-0">
+                        <Image
+                          src={edu.image}
+                          alt={edu.school}
+                          fill
+                          className="object-contain rounded-lg"
+                        />
+                      </div>
                       <div className="flex-1">
                         <h3 className="text-xl font-semibold text-gray-800 mb-1">{edu.school}</h3>
                         <p className="text-blue-600 font-medium mb-2">{edu.period}</p>
