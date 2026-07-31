@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import {
   SiHtml5, SiCss3, SiJavascript, SiTailwindcss, SiBootstrap,
   SiFlutter, SiPhp, SiLaravel, SiGo, SiReact, SiNextdotjs,
-  SiFigma, SiArduino, SiMqtt, SiMysql, SiFirebase, SiSqlite,
+  SiFigma, SiArduino, SiMqtt, SiMysql, SiFirebase,
   SiGit, SiGithub, SiLinux, SiCplusplus,
 } from "react-icons/si";
 import { IconType } from "react-icons";

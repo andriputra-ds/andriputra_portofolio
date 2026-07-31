@@ -34,7 +34,7 @@ export default function InkCanvas() {
 
     // Init blobs
     const count = 8;
-    blobsRef.current = Array.from({ length: count }, (_, i) => ({
+    blobsRef.current = Array.from({ length: count }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
       vx: (Math.random() - 0.5) * 0.4,
