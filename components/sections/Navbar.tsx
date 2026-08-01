@@ -91,6 +91,7 @@ export default function Navbar() {
                   color: isActive ? "#F5F3EE" : "#555555",
                   fontFamily: "var(--font-inter)",
                   transition: "color 0.3s ease",
+                  textShadow: isActive ? "0 0 10px rgba(245, 243, 238, 0.6), 0 0 20px rgba(245, 243, 238, 0.3)" : "none",
                 }}
               >
                 {item.label}
@@ -135,6 +136,7 @@ export default function Navbar() {
                 color: isActive ? "#F5F3EE" : "#555555",
                 minWidth: "3.5rem",
                 flex: "1",
+                filter: isActive ? "drop-shadow(0 0 8px rgba(245, 243, 238, 0.5))" : "none",
               }}
               whileTap={{ scale: 0.95 }}
               whileHover={{ backgroundColor: "rgba(245,243,238,0.05)" }}
