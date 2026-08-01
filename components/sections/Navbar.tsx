@@ -118,7 +118,7 @@ export default function Navbar() {
 
       {/* Mobile Bottom Navigation */}
       <motion.nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-50 px-4 py-3 bg-[#050505]/95 backdrop-blur-lg border-t border-[#F5F3EE]/10 flex items-center justify-around"
+        className="md:hidden fixed bottom-0 left-0 right-0 z-50 px-2 py-2 bg-[#050505]/95 backdrop-blur-lg border-t border-[#F5F3EE]/10 flex items-center justify-around gap-1"
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
@@ -130,15 +130,22 @@ export default function Navbar() {
             <motion.button
               key={item.href}
               onClick={() => scrollTo(item.href)}
-              className="flex flex-col items-center gap-1 py-2 px-3 cursor-none rounded-lg transition-colors"
+              className="flex flex-col items-center justify-center py-2 px-2 cursor-none rounded-lg transition-colors relative group"
               style={{
                 color: isActive ? "#F5F3EE" : "#555555",
+                minWidth: "3.5rem",
+                flex: "1",
               }}
               whileTap={{ scale: 0.95 }}
               whileHover={{ backgroundColor: "rgba(245,243,238,0.05)" }}
+              title={item.label}
             >
-              <Icon size={24} strokeWidth={1.5} />
-              <span className="text-[10px] tracking-widest uppercase" style={{ fontFamily: "var(--font-inter)" }}>
+              <Icon size={20} strokeWidth={1.5} />
+              <span className="text-[8px] tracking-widest uppercase mt-0.5 hidden sm:inline" style={{ fontFamily: "var(--font-inter)" }}>
+                {item.label}
+              </span>
+              {/* Tooltip untuk mobile tanpa label */}
+              <span className="sm:hidden absolute -top-8 left-1/2 transform -translate-x-1/2 bg-[#050505]/95 px-2 py-1 rounded text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" style={{ fontFamily: "var(--font-inter)" }}>
                 {item.label}
               </span>
             </motion.button>
