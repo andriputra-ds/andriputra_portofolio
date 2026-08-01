@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import EnsoDecoration from "@/components/effects/EnsoDecoration";
 import {
   SiHtml5, SiCss3, SiJavascript, SiTailwindcss, SiBootstrap,
   SiFlutter, SiPhp, SiLaravel, SiGo, SiReact, SiNextdotjs,
@@ -164,6 +165,13 @@ export default function SkillsSection() {
       ref={ref}
       className="relative bg-[#050505] text-[#F5F3EE] py-32 md:py-40 px-6 md:px-16 lg:px-24 overflow-hidden"
     >
+      {/* Enso decoration */}
+      <div 
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{ zIndex: 1 }}
+      >
+        <EnsoDecoration side="left" isDarkBg={true} size="large" />
+      </div>
       {/* Background ink blobs */}
       {[...Array(3)].map((_, i) => (
         <motion.div

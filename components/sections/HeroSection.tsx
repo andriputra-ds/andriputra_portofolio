@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import InkCanvas from "@/components/effects/InkCanvas";
+import EnsoDecoration from "@/components/effects/EnsoDecoration";
 
 const roles = ["Software Engineer", "Software Developer", "IoT Enthusiast", "Full-stack Developer", "UI/UX Designer"];
 
@@ -19,6 +20,13 @@ export default function HeroSection() {
       ref={ref}
       className="relative w-full h-screen overflow-hidden flex items-center justify-center"
     >
+      {/* Enso decoration */}
+      <div 
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{ zIndex: 1 }}
+      >
+        <EnsoDecoration side="left" isDarkBg={true} size="large" />
+      </div>
       {/* Animated ink canvas background */}
       <InkCanvas />
 
@@ -33,16 +41,34 @@ export default function HeroSection() {
 
       {/* Content */}
       <motion.div
-        className="relative z-10 w-full px-6 max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-14 lg:gap-24"
+        className="relative z-10 w-full px-6 max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-10 md:gap-14 lg:gap-24 pt-24 md:pt-0"
         style={{ y, opacity }}
-      > {/* Photo frame */}
+      >
+        {/* Logo on mobile (above photo) */}
+        <motion.div
+          className="md:hidden flex justify-center mb-6"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <Image
+            src="/Andri.png"
+            alt="Andri Putra Logo"
+            width={60}
+            height={60}
+            className="object-contain drop-shadow-lg"
+            priority
+          />
+        </motion.div>
+
+        {/* Photo frame */}
           <div
             className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 overflow-hidden rounded-full border-2 border-[#F5F3EE]/20 shadow-[0_0_80px_rgba(245,243,238,0.15)]"
             data-cursor-card
           >
             <Image
               src="/andri-foto.jpeg"
-              alt="Andri Putra"
+              alt="Andri Putra "
               fill
               priority
               sizes="(max-width: 640px) 224px, (max-width: 1024px) 288px, 320px"
@@ -60,14 +86,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <span className="w-8 h-px bg-[#F5F3EE]/30" />
-          <span
-            className="text-xs tracking-[0.3em] uppercase text-[#777777]"
-            style={{ fontFamily: "var(--font-inter)" }}
-          >
-            Portfolio 2026
-          </span>
-          <span className="w-8 h-px bg-[#F5F3EE]/30" />
+       
         </motion.div>
 
         {/* Name */}
@@ -78,7 +97,7 @@ export default function HeroSection() {
             animate={{ y: 0 }}
             transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            Andri Putra
+            Andri Putra Desyandra Siregar
           </motion.h1>
         </div>
 
@@ -167,12 +186,7 @@ export default function HeroSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8, duration: 1 }}
       >
-        <span
-          className="text-[10px] tracking-[0.3em] uppercase text-[#444444]"
-          style={{ fontFamily: "var(--font-inter)" }}
-        >
-          Scroll to explore
-        </span>
+        
         <motion.div
           className="w-px h-12 bg-gradient-to-b from-[#F5F3EE]/30 to-transparent"
           animate={{ scaleY: [1, 0.3, 1], opacity: [0.5, 1, 0.5] }}

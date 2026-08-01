@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import EnsoDecoration from "@/components/effects/EnsoDecoration";
 
 const milestones = [
 
@@ -199,6 +200,13 @@ export default function JourneySection() {
       ref={ref}
       className="relative bg-[#F5F3EE] text-[#050505] py-32 md:py-40 px-6 md:px-16 lg:px-24 overflow-hidden"
     >
+      {/* Enso decoration */}
+      <div 
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{ zIndex: 1 }}
+      >
+        <EnsoDecoration side="left" isDarkBg={false} size="large" />
+      </div>
       {/* Top transition */}
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#050505] to-transparent pointer-events-none" />
 

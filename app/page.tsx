@@ -1,6 +1,7 @@
 "use client";
 
 import InkCursor from "@/components/effects/InkCursor";
+import InkSplash from "@/components/effects/InkSplash";
 import Navbar from "@/components/sections/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
@@ -20,6 +21,9 @@ export default function Page() {
         cursor: "none",
       }}
     >
+      {/* Ink splash background effect */}
+      <InkSplash />
+
       {/* Custom ink cursor */}
       <InkCursor />
 

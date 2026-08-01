@@ -2,9 +2,10 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import EnsoDecoration from "@/components/effects/EnsoDecoration";
 
 const links = [
-  { label: "Email", value: "andriputra@email.com", href: "mailto:andriputra@email.com" },
+  { label: "Email", value: "andriputra110906@gmail.com", href: "mailto:andriputra110906@gmail.com" },
   { label: "GitHub", value: "github.com/andriputra", href: "https://github.com/andriputra-ds" },
   { label: "LinkedIn", value: "linkedin.com/in/andriputra", href: "https://linkedin.com/in/andriputra" },
 ];
@@ -64,6 +65,13 @@ export default function ContactSection() {
         ref={ref}
         className="relative bg-[#050505] text-[#F5F3EE] py-32 md:py-48 px-6 md:px-16 lg:px-24 overflow-hidden"
       >
+        {/* Enso decoration */}
+        <div 
+          className="absolute inset-0 pointer-events-none overflow-hidden"
+          style={{ zIndex: 1 }}
+        >
+          <EnsoDecoration side="right" isDarkBg={true} size="large" />
+        </div>
         {/* Ambient ink blobs */}
         {[...Array(2)].map((_, i) => (
           <motion.div

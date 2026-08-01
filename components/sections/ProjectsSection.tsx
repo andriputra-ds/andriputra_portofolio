@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import EnsoDecoration from "@/components/effects/EnsoDecoration";
 
 interface Project {
   number: string;
@@ -141,13 +142,17 @@ export function ProjectModal({
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           {/* Close */}
-          <button
+          <motion.button
             onClick={onClose}
-            className="absolute top-6 right-6 text-[#555555] hover:text-[#F5F3EE] transition-colors cursor-none text-xs tracking-widest uppercase"
-            style={{ fontFamily: "var(--font-inter)" }}
+            className="absolute top-4 right-4 md:top-6 md:right-6 z-20 flex items-center justify-center w-10 h-10 md:w-auto md:h-auto rounded-lg md:rounded-none bg-[#111111]/80 md:bg-transparent hover:bg-[#222222]/80 md:hover:bg-transparent transition-colors cursor-none"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            Close ✕
-          </button>
+            <span className="text-lg md:text-xs text-[#F5F3EE] hover:text-[#F5F3EE] tracking-widest uppercase md:tracking-widest" style={{ fontFamily: "var(--font-inter)" }}>
+              <span className="md:inline hidden">Close ✕</span>
+              <span className="md:hidden">✕</span>
+            </span>
+          </motion.button>
 
           {/* Project gallery slider */}
           {images.length > 0 && (
@@ -161,9 +166,11 @@ export function ProjectModal({
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                   className="flex w-full h-full items-center justify-center p-2 md:p-4"
                 >
-                  <img
+                  <Image
                     src={images[slide]}
                     alt={`${project.name} preview ${slide + 1}`}
+                    width={800}
+                    height={600}
                     className="h-full w-auto max-w-full object-contain drop-shadow-2xl"
                   />
                 </motion.div>
@@ -315,13 +322,13 @@ function ProjectCard({
         >
           <div className="relative w-full h-full p-8 md:p-12 flex items-center justify-center">
             <div className="relative w-full h-full max-w-3xl">
-              {/* Logo — hidden/samurai by default, appears on hover */}
+              {/* Logo — always visible */}
               <motion.div
                 className="absolute inset-0"
                 animate={{
-                  opacity: hovered ? 1 : 0.15,
-                  filter: hovered ? "blur(0px)" : "blur(6px)",
-                  scale: hovered ? 1 : 0.92,
+                  opacity: 1,
+                  filter: "blur(0px)",
+                  scale: 1,
                 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               >
@@ -333,27 +340,6 @@ function ProjectCard({
                   sizes="(max-width: 768px) 100vw, 80vw"
                   className="object-contain drop-shadow-2xl"
                 />
-              </motion.div>
-
-              {/* Hover prompt */}
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center pointer-events-none"
-                animate={{ opacity: hovered ? 0 : 1 }}
-                transition={{ duration: 0.4 }}
-              >
-                <span
-                  className="text-[10px] tracking-[0.3em] uppercase px-4 py-2 border"
-                  style={{
-                    fontFamily: "var(--font-inter)",
-                    color: isDark ? "#888888" : "#666666",
-                    borderColor: isDark
-                      ? "rgba(245,243,238,0.15)"
-                      : "rgba(5,5,5,0.15)",
-                    backdropFilter: "blur(4px)",
-                  }}
-                >
-                  Hover to reveal
-                </span>
               </motion.div>
             </div>
             {/* Image tint overlay */}
@@ -471,6 +457,13 @@ export default function ProjectsSection() {
       ref={ref}
       className="relative bg-[#050505] text-[#F5F3EE] py-32 md:py-40 overflow-hidden"
     >
+      {/* Enso decoration */}
+      <div 
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{ zIndex: 1 }}
+      >
+        <EnsoDecoration side="right" isDarkBg={true} size="large" />
+      </div>
       {/* Header */}
       <div className="px-6 md:px-16 lg:px-24 mb-16">
         <motion.span

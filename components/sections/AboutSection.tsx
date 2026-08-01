@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import EnsoDecoration from "@/components/effects/EnsoDecoration";
 
 const stats = [
   { value: "4+", label: "Projects" },
@@ -44,6 +45,13 @@ export default function AboutSection() {
       ref={ref}
       className="relative bg-[#F5F3EE] text-[#050505] py-32 md:py-40 px-6 md:px-16 lg:px-24 overflow-hidden"
     >
+      {/* Enso decoration */}
+      <div 
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        style={{ zIndex: 1 }}
+      >
+        <EnsoDecoration side="right" isDarkBg={false} size="large" />
+      </div>
       {/* Ink blob decoration */}
       <motion.div
         className="absolute -top-20 -right-20 w-80 h-80 rounded-full pointer-events-none"
