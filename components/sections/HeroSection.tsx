@@ -4,7 +4,8 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import InkCanvas from "@/components/effects/InkCanvas";
-import EnsoDecoration from "@/components/effects/EnsoDecoration";
+import InkSplash from "../effects/InkSplash";
+
 
 const roles = ["Software Engineer", "Software Developer", "IoT Enthusiast", "Full-stack Developer", "UI/UX Designer"];
 
@@ -25,10 +26,11 @@ export default function HeroSection() {
         className="absolute inset-0 pointer-events-none overflow-hidden"
         style={{ zIndex: 1 }}
       >
-        <EnsoDecoration side="left" isDarkBg={true} size="large" />
+ 
       </div>
       {/* Animated ink canvas background */}
       <InkCanvas />
+      <InkSplash />
 
       {/* Noise overlay */}
       <div

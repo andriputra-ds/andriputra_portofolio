@@ -1,7 +1,7 @@
 "use client";
 
 import InkCursor from "@/components/effects/InkCursor";
-import InkSplash from "@/components/effects/InkSplash";
+import GlassShards from "@/components/effects/GlassShards";
 import Navbar from "@/components/sections/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
@@ -21,8 +21,10 @@ export default function Page() {
         cursor: "none",
       }}
     >
-      {/* Ink splash background effect */}
-      <InkSplash />
+ 
+
+      {/* Glass shards overlay across all sections */}
+      <GlassShards />
 
       {/* Custom ink cursor */}
       <InkCursor />

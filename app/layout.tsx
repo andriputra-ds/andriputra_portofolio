@@ -16,9 +16,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Andri Putra — Creative Developer",
+  title: "Andri Putra — Software Engineer",
   description:
-    "Creative Developer · Software Engineer · IoT Enthusiast. Portfolio of Andri Putra.",
+    "Software Engineer · IoT Enthusiast. Portfolio of Andri Putra.",
   icons: { icon: "/favicon.ico" },
 };
 

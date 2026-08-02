@@ -2,23 +2,26 @@
 
 import { useEffect, useRef } from "react";
 
-interface Particle {
+interface TrailPoint {
   x: number;
   y: number;
-  vx: number;
-  vy: number;
   life: number;
   maxLife: number;
   size: number;
-  opacity: number;
 }
 
 export default function InkSplash() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<Particle[]>([]);
+  const pointsRef = useRef<TrailPoint[]>([]);
+  const mouseRef = useRef({ x: 0, y: 0, lastX: 0, lastY: 0, active: false });
   const animationRef = useRef<number | null>(null);
 
   useEffect(() => {
+    // Skip on mobile/touch devices
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -33,94 +36,127 @@ export default function InkSplash() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Create ink splash on mouse move
-    const createSplash = (x: number, y: number, intensity: number = 3) => {
-      for (let i = 0; i < intensity; i++) {
-        const angle = (Math.random() * Math.PI * 2);
-        const velocity = 1 + Math.random() * 3;
-        const size = 2 + Math.random() * 8;
-
-        particlesRef.current.push({
-          x,
-          y,
-          vx: Math.cos(angle) * velocity,
-          vy: Math.sin(angle) * velocity,
-          life: 0,
-          maxLife: 60 + Math.random() * 40,
-          size,
-          opacity: 0.8 + Math.random() * 0.2,
-        });
-      }
-    };
-
-    // Random splashes across the viewport
-    const createRandomSplash = () => {
-      const randomX = Math.random() * canvas.width;
-      const randomY = Math.random() * canvas.height;
-      createSplash(randomX, randomY, 2);
-    };
-
-    // Interval for random splashes
-    const splashInterval = setInterval(() => {
-      if (Math.random() > 0.7) {
-        createRandomSplash();
-      }
-    }, 800);
-
-    // Mouse move splashes
+    // Track mouse movement
     const handleMouseMove = (e: MouseEvent) => {
-      if (Math.random() > 0.85) {
-        createSplash(e.clientX, e.clientY, 1);
-      }
+      const mouse = mouseRef.current;
+      mouse.lastX = mouse.x;
+      mouse.lastY = mouse.y;
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
     };
+
+    const handleMouseLeave = () => {
+      mouseRef.current.active = false;
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
 
     // Animation loop
     const animate = () => {
-      // Clear with semi-transparent background for trail effect
-      ctx.fillStyle = "rgba(5, 5, 5, 0.02)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Update and draw particles
-      for (let i = particlesRef.current.length - 1; i >= 0; i--) {
-        const p = particlesRef.current[i];
+      const mouse = mouseRef.current;
+
+      // Add new trail point when mouse moves
+      if (mouse.active) {
+        const dx = mouse.x - mouse.lastX;
+        const dy = mouse.y - mouse.lastY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        // Only add point if mouse actually moved
+        if (dist > 1) {
+          // Speed determines trail thickness (slower = thicker brush stroke)
+          const speed = Math.min(dist, 30);
+          const size = 6 + Math.min(speed * 0.3, 8);
+
+          pointsRef.current.push({
+            x: mouse.x,
+            y: mouse.y,
+            life: 0,
+            maxLife: 70 + Math.random() * 30,
+            size,
+          });
+
+          // Interpolate intermediate points for smooth continuous stroke
+          if (dist > 8) {
+            const steps = Math.min(Math.floor(dist / 4), 8);
+            for (let i = 1; i < steps; i++) {
+              const t = i / steps;
+              pointsRef.current.push({
+                x: mouse.lastX + dx * t,
+                y: mouse.lastY + dy * t,
+                life: 0,
+                maxLife: 70 + Math.random() * 30,
+                size: size * (1 - t * 0.4),
+              });
+            }
+          }
+
+          // Limit trail points
+          if (pointsRef.current.length > 400) {
+            pointsRef.current.splice(0, pointsRef.current.length - 400);
+          }
+        }
+      }
+
+      // Draw trail with brush-like rendering
+      // Use a persistent stroke style - draw each point as soft circle
+      for (let i = 0; i < pointsRef.current.length; i++) {
+        const p = pointsRef.current[i];
         p.life++;
 
-        // Remove dead particles
         if (p.life >= p.maxLife) {
-          particlesRef.current.splice(i, 1);
+          pointsRef.current.splice(i, 1);
+          i--;
           continue;
         }
 
-        // Physics
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.08; // gravity
-        p.vx *= 0.98; // friction
-
-        // Fade out
         const lifeProgress = p.life / p.maxLife;
-        const alpha = p.opacity * (1 - lifeProgress);
+        const alpha = Math.pow(1 - lifeProgress, 1.5) * 0.5;
+        const size = p.size * (1 - lifeProgress * 0.5);
 
-        // Draw particle with gradient
+        // Soft brush stroke circle
         const gradient = ctx.createRadialGradient(
           p.x,
           p.y,
           0,
           p.x,
           p.y,
-          p.size
+          size
         );
-        gradient.addColorStop(0, `rgba(245, 243, 238, ${alpha * 0.8})`);
-        gradient.addColorStop(1, `rgba(245, 243, 238, ${alpha * 0.1})`);
+        gradient.addColorStop(0, `rgba(245, 243, 238, ${alpha})`);
+        gradient.addColorStop(0.6, `rgba(245, 243, 238, ${alpha * 0.4})`);
+        gradient.addColorStop(1, `rgba(245, 243, 238, 0)`);
 
         ctx.fillStyle = gradient;
-        ctx.fillRect(
-          p.x - p.size,
-          p.y - p.size,
-          p.size * 2,
-          p.size * 2
-        );
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Draw connecting stroke between recent points for continuous brush line
+      if (pointsRef.current.length > 1) {
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+
+        const recent = pointsRef.current.slice(-30);
+        for (let i = 1; i < recent.length; i++) {
+          const a = recent[i - 1];
+          const b = recent[i];
+
+          if (a.life > 80 || b.life > 80) continue;
+
+          const alpha = 0.28 * (1 - Math.max(a.life, b.life) / 90);
+          ctx.strokeStyle = `rgba(245, 243, 238, ${alpha})`;
+          ctx.lineWidth = ((a.size + b.size) / 2) * 0.6;
+
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
       }
 
       animationRef.current = requestAnimationFrame(animate);
@@ -131,7 +167,7 @@ export default function InkSplash() {
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       window.removeEventListener("mousemove", handleMouseMove);
-      clearInterval(splashInterval);
+      document.removeEventListener("mouseleave", handleMouseLeave);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -141,8 +177,8 @@ export default function InkSplash() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-10"
-      style={{ mixBlendMode: "screen" }}
+      className="fixed inset-0 pointer-events-none z-40 hidden md:block"
+      style={{ mixBlendMode: "difference" }}
     />
   );
 }
